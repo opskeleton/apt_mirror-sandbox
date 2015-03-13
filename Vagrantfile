@@ -3,7 +3,7 @@
 
 Vagrant.configure("2") do |config|
 
-  config.vm.define :apt_mirror do |node|
+  config.vm.define :aptmirror do |node|
     bridge = ENV['VAGRANT_BRIDGE']
     bridge ||= 'eth0'
 
@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
     node.vm.box = 'ubuntu-14.10_puppet-3.7.3' 
     node.vm.network :public_network, :bridge => bridge
-    node.vm.hostname = 'apt_mirror.local'
+    node.vm.hostname = 'aptmirror.local'
   
     node.vm.provider :virtualbox do |vb|
       vb.customize ['modifyvm', :id, '--memory', 2048, '--cpus', 2]
