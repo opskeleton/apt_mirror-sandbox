@@ -6,3 +6,7 @@ mod 'puppetlabs/apt'
 
 mod 'mstrauss/editfile', 
    :git => 'git://github.com/mstrauss/puppet-editfile.git'
+
+
+mod 'jtopjian/apt_mirror', 
+   :git => 'git://github.com/jtopjian/puppet-apt_mirror.git'
