@@ -1,6 +1,10 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
+    jfryman-nginx (0.2.2)
+      puppetlabs-apt (< 2.0.0, >= 1.0.0)
+      puppetlabs-concat (< 2.0.0, >= 1.1.1)
+      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
     puppetlabs-apt (1.7.0)
       puppetlabs-stdlib (>= 2.2.1)
     puppetlabs-concat (1.2.0)
@@ -23,6 +27,7 @@ GIT
     mstrauss-editfile (0.0.1)
 
 DEPENDENCIES
+  jfryman-nginx (>= 0)
   jtopjian-apt_mirror (>= 0)
   mstrauss-editfile (>= 0)
   puppetlabs-apt (>= 0)

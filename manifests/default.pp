@@ -15,4 +15,13 @@ node default {
     release    => ['trusty'],
     components => ['main'],
   }
+
+  include ::nginx
+
+  nginx::resource::vhost { $::hostname:
+    ensure    => present,
+    www_root  => '/var/spool/apt-mirror/mirror/il.archive.ubuntu.com/ubuntu/pool/',
+    autoindex => 'on'
+  }
+
 }
