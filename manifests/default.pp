@@ -1,20 +1,23 @@
 node default {
 
+  $base_path = '/data'
+  $release = 'utopic'
+
   class { 'apt_mirror':
-    base_path  => '/data'
+    base_path  => $base_path
   }
 
-  apt_mirror::mirror { 'utopic':
+  apt_mirror::mirror { $release:
     mirror     => 'il.archive.ubuntu.com',
     os         => 'ubuntu',
-    release    => ['utopic', 'utopic-updates', 'utopic-backports'],
+    release    => [$release, "${release}-updates", "${release}-backports"],
     components => ['main', 'restricted', 'universe', 'multiverse']
   }
 
   apt_mirror::mirror { 'extras':
     mirror     => 'extras.ubuntu.com',
     os         => 'ubuntu',
-    release    => ['utopic'],
+    release    => [$release],
     components => ['main']
   }
 
@@ -22,11 +25,11 @@ node default {
 
   nginx::resource::vhost { $::hostname:
     ensure    => present,
-    www_root  => '/var/spool/apt-mirror/mirror/il.archive.ubuntu.com/ubuntu/pool/',
+    www_root  => "${base_path}/mirror/il.archive.ubuntu.com/ubuntu/pool/",
     autoindex => 'on'
   }
 
-  file{'/data':
+  file{$base_path:
     ensure => directory,
   } ->
 
