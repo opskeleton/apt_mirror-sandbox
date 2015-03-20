@@ -9,3 +9,6 @@ mod 'mstrauss/editfile',
 
 mod 'jtopjian/apt_mirror', 
    :git => 'git://github.com/jtopjian/puppet-apt_mirror.git'
+
+mod 'strings/mkfs', 
+  :git => 'git://github.com/pulling-strings/puppet-mkfs.git'
