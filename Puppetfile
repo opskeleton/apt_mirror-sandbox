@@ -12,3 +12,6 @@ mod 'jtopjian/apt_mirror',
 
 mod 'strings/mkfs', 
   :git => 'git://github.com/pulling-strings/puppet-mkfs.git'
+
+mod 'rip/module-data',
+  :git => 'git://github.com/ripienaar/puppet-module-data.git'
