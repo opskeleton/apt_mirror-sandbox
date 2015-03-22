@@ -22,7 +22,7 @@ node default {
     components => ['main']
   }
 
-  apt_mirror::mirror { 'security.ubuntu.com':
+  apt_mirror::mirror { 'security':
     mirror     => 'security.ubuntu.com',
     os         => 'ubuntu',
     release    => ["${release}-security"],
@@ -44,10 +44,18 @@ node default {
     autoindex => 'on'
   }
 
+  nginx::resource::location { 'ubuntu-extras':
+    ensure    => present,
+    www_root  => "${base_path}/mirror/extras.ubuntu.com/",
+    location  => '/ubuntu-extras',
+    vhost     => $::hostname,
+    autoindex => 'on'
+  }
+
   nginx::resource::location { 'ubuntu-security':
     ensure    => present,
     www_root  => "${base_path}/mirror/security.ubuntu.com/",
-    location  => '/ubuntu',
+    location  => '/ubuntu-security',
     vhost     => $::hostname,
     autoindex => 'on'
   }
