@@ -2,13 +2,14 @@ node default {
 
   $base_path = '/data'
   $release = 'utopic'
+  $origin = 'us.archive.ubuntu.com'
 
   class { 'apt_mirror':
     base_path  => $base_path
   }
 
   apt_mirror::mirror { $release:
-    mirror     => 'il.archive.ubuntu.com',
+    mirror     => $origin,
     os         => 'ubuntu',
     release    => [$release, "${release}-updates", "${release}-backports"],
     components => ['main', 'restricted', 'universe', 'multiverse'],
@@ -19,7 +20,8 @@ node default {
     mirror     => 'extras.ubuntu.com',
     os         => 'ubuntu',
     release    => [$release],
-    components => ['main']
+    components => ['main'],
+    alt_arch   => ['i386']
   }
 
   apt_mirror::mirror { 'security':
@@ -27,6 +29,7 @@ node default {
     os         => 'ubuntu',
     release    => ["${release}-security"],
     components => ['main', 'restricted', 'universe', 'multiverse'],
+    alt_arch   => ['i386']
   }
 
   include ::nginx
@@ -38,26 +41,26 @@ node default {
 
   nginx::resource::location { 'ubuntu':
     ensure    => present,
-    www_root  => "${base_path}/mirror/il.archive.ubuntu.com/",
+    www_root  => "${base_path}/mirror/${origin}/",
     location  => '/ubuntu',
     vhost     => $::hostname,
     autoindex => 'on'
   }
 
   nginx::resource::location { 'ubuntu-extras':
-    ensure    => present,
-    www_root  => "${base_path}/mirror/extras.ubuntu.com/",
-    location  => '/ubuntu-extras',
-    vhost     => $::hostname,
-    autoindex => 'on'
+    ensure         => present,
+    location_alias => "${base_path}/mirror/extras.ubuntu.com/ubuntu/",
+    location       => '/ubuntu-extras',
+    vhost          => $::hostname,
+    autoindex      => 'on'
   }
 
   nginx::resource::location { 'ubuntu-security':
-    ensure    => present,
-    www_root  => "${base_path}/mirror/security.ubuntu.com/",
-    location  => '/ubuntu-security',
-    vhost     => $::hostname,
-    autoindex => 'on'
+    ensure         => present,
+    location_alias => "${base_path}/mirror/security.ubuntu.com/ubuntu/",
+    location       => '/ubuntu-security',
+    vhost          => $::hostname,
+    autoindex      => 'on'
   }
 
   file{$base_path:
