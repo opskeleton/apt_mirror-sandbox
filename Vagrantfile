@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+VAGRANT_DEFAULT_PROVIDER = 'libvirt'
+
 Vagrant.configure("2") do |config|
 
   config.vm.define :aptmirror do |node|
@@ -11,7 +13,7 @@ Vagrant.configure("2") do |config|
     env ||= 'dev'
 
     node.vm.box = 'ubuntu-14.10_puppet-3.7.3' 
-    node.vm.network :public_network, :bridge => bridge, :mac => '52:54:00:ff:03:08'
+    node.vm.network :public_network, :bridge => bridge, :mac => '525400ff0308'
     node.vm.hostname = 'aptmirror.local'
 
     node.vm.provider :libvirt do |domain|
@@ -19,7 +21,7 @@ Vagrant.configure("2") do |config|
       domain.host = "aptmirror.local"
       domain.memory = 2048
       domain.cpus = 2
-      domain.storage :file, :size => '500G', :path => 'aptmirror.qcow2'
+	domain.storage :file, :size => '500G', :path => 'aptmirror.qcow2'
     end
 
     node.vm.provision :puppet do |puppet|
