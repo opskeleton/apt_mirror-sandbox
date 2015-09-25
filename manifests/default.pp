@@ -1,7 +1,7 @@
 node default {
 
   $base_path = '/data'
-  $release = 'utopic'
+  $release = 'vivid'
   $origin = 'us.archive.ubuntu.com'
 
   class { 'apt_mirror':
