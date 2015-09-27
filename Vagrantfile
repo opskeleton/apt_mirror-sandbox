@@ -14,13 +14,14 @@ Vagrant.configure("2") do |config|
     node.vm.network :public_network, :bridge => device,:dev => device, :mac => '525400ff0308'
     node.vm.hostname = 'aptmirror.local'
 
-    node.vm.provider :libvirt do |domain|
+    node.vm.provider :libvirt do |domain,o|
 	domain.uri = 'qemu+unix:///system'
 	domain.host = "aptmirror.local"
 	domain.memory = 2048
 	domain.cpus = 2
 	domain.storage :file, :size => '500G', :path => 'aptmirror.qcow2'
 	domain.storage_pool_name = 'aptmirror'
+	o.vm.synced_folder './', '/vagrant', type: 'nfs'
     end
 
     node.vm.provision :puppet do |puppet|
