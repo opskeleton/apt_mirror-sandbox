@@ -16,11 +16,11 @@ node default {
     alt_arch   => ['i386']
   }
 
-  apt_mirror::mirror { 'extras':
-    mirror     => 'extras.ubuntu.com',
+  apt_mirror::mirror { 'partner':
+    mirror     => 'archive.canonical.com',
     os         => 'ubuntu',
     release    => [$release],
-    components => ['main'],
+    components => ['partner'],
     alt_arch   => ['i386']
   }
 
@@ -47,10 +47,10 @@ node default {
     autoindex => 'on'
   }
 
-  nginx::resource::location { 'ubuntu-extras':
+  nginx::resource::location { 'ubuntu-partner':
     ensure         => present,
-    location_alias => "${base_path}/mirror/extras.ubuntu.com/ubuntu/",
-    location       => '/ubuntu-extras',
+    location_alias => "${base_path}/mirror/archive.canonical.com/ubuntu/",
+    location       => '/ubuntu-partner',
     vhost          => $::hostname,
     autoindex      => 'on'
   }
