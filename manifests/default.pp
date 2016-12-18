@@ -1,8 +1,8 @@
 node default {
 
   $base_path = '/data'
-  $release = 'wily'
-  $origin = 'us.archive.ubuntu.com'
+  $release = 'xenial'
+  $origin = 'au.archive.ubuntu.com'
 
   class { 'apt_mirror':
     base_path  => $base_path
