@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
     env  = ENV['PUPPET_ENV'] || 'dev'
 
     node.vm.box = 'ubuntu-16.04_puppet-3.8.7' 
+    node.vm.network :private_network, ip: '192.168.1.201'
 
     node.vm.provider :libvirt do |domain,o|
       domain.uri = 'qemu+unix:///system'
