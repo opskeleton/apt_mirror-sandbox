@@ -34,32 +34,32 @@ node default {
 
   include ::nginx
 
-  nginx::resource::vhost { $::hostname:
+  nginx::resource::server { $::hostname:
     ensure               => present,
     use_default_location => false
   }
 
   nginx::resource::location { 'ubuntu':
     ensure    => present,
+    server    => $::hostname,
     www_root  => "${base_path}/mirror/${origin}/",
     location  => '/ubuntu',
-    vhost     => $::hostname,
     autoindex => 'on'
   }
 
   nginx::resource::location { 'ubuntu-partner':
     ensure         => present,
+    server         => $::hostname,
     location_alias => "${base_path}/mirror/archive.canonical.com/ubuntu/",
     location       => '/ubuntu-partner',
-    vhost          => $::hostname,
     autoindex      => 'on'
   }
 
   nginx::resource::location { 'ubuntu-security':
     ensure         => present,
+    server         => $::hostname,
     location_alias => "${base_path}/mirror/security.ubuntu.com/ubuntu/",
     location       => '/ubuntu-security',
-    vhost          => $::hostname,
     autoindex      => 'on'
   }
 
